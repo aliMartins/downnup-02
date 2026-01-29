@@ -1,0 +1,31 @@
+name: Daily Strategy Scan
+
+on:
+  schedule:
+    # Runs at 20:30 UTC (3:30 PM EST) and 21:30 UTC (4:30 PM EST) Monday-Friday
+    - cron: '30 20,21 * * 1-5'
+  workflow_dispatch: # Allows you to manually run the scan from the Actions tab
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+
+      - name: Set up Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install required libraries
+        run: |
+          pip install yfinance pandas requests
+
+      - name: Execute Screener and Send Alerts
+        env:
+          # This connects the "Secrets" in your settings to the Python script
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python notify.py
