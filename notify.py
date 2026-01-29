@@ -22,3 +22,5 @@ for res in results:
 
 if has_signal:
     send_telegram_msg(alert_text)
+else:
+    send_telegram_msg("✅ Strategy Scan Complete: No signals triggered.")
