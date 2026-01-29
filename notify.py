@@ -1,19 +1,20 @@
 import os
 import requests
-from main import run_screener_logic # We'll wrap your logic in a function
+# Imports the logic from your specific filename
+from strlit_screener import run_screener 
 
 def send_telegram_msg(message):
     token = os.getenv("TELEGRAM_TOKEN")
     chat_id = os.getenv("TELEGRAM_CHAT_ID")
     url = f"https://api.telegram.org/bot{token}/sendMessage"
-    requests.post(url, data={"chat_id": chat_id, "text": message})
+    requests.post(url, data={"chat_id": chat_id, "text": message}, timeout=10)
 
-results = run_screener_logic()
+# Execute the logic and collect results
+results = run_screener()
 alert_text = "🎯 Daily Strategy Alert:\n"
 has_signal = False
 
 for res in results:
-    # Only notify if actions are NOT "NO ACTION REQUIRED"
     if "NO ACTION REQUIRED" not in res['actions']:
         has_signal = True
         alert_text += f"\n[{res['ticker']}] ${res['price']:.2f}\n"
@@ -23,4 +24,5 @@ for res in results:
 if has_signal:
     send_telegram_msg(alert_text)
 else:
-    send_telegram_msg("✅ Strategy Scan Complete: No signals triggered.")
+    send_telegram_msg("✅ Strategy Scan Complete: No signals today.")
+
