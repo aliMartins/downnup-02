@@ -21,7 +21,7 @@ jobs:
 
       - name: Install required libraries
         run: |
-          pip install yfinance pandas requests
+          pip install yfinance pandas requests streamlit
 
       - name: Execute Screener and Send Alerts
         env:
