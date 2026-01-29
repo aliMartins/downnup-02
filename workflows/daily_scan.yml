@@ -1,7 +1,7 @@
 name: Daily Strategy Scan
 on:
   schedule:
-    - cron: '30 20 * * 1-5' # Runs at 21:30 UTC (3:30 PM EST) Mon-Fri
+    - cron: '30 15,20 * * 1-5' # Runs at 21:30 UTC (3:30 PM EST) Mon-Fri
   workflow_dispatch: # Allows you to run it manually for testing
 
 jobs:
