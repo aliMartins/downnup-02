@@ -104,7 +104,7 @@ if __name__ == "__main__":
     st.title("📈 Mean Reversion Strategy Dashboard")
     
     try:
-        scan_results = run_screener()
+        scan_results, error = run_screener()
         
         for res in scan_results:
             with st.container():
@@ -129,4 +129,5 @@ if __name__ == "__main__":
                 
     except Exception as e:
         st.error(f"Error executing scan: {e}")
+
 
