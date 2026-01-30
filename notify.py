@@ -12,7 +12,7 @@ def send_telegram_msg(message):
         print(f"Connection Error: {e}")
 
 # Run the logic
-scan_results, error = run_screener()
+scan_results = run_screener()
 
 if error:
     send_telegram_msg(f"⚠️ Screener Error: {error}")
@@ -31,3 +31,4 @@ else:
         send_telegram_msg(alert_text)
     else:
         send_telegram_msg("✅ Strategy Scan Complete: No signals triggered.")
+
