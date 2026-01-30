@@ -3,7 +3,7 @@ name: Daily Strategy Scan
 on:
   schedule:
     # Runs at 20:30 UTC (3:30 PM EST) and 21:30 UTC (4:30 PM EST) Monday-Friday
-    - cron: '30 20,21 * * 1-5'
+    - cron: '30 16,20 * * 1-5'
   workflow_dispatch: # Allows you to manually run the scan from the Actions tab
 
 jobs:
