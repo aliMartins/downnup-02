@@ -14,21 +14,19 @@ def send_telegram_msg(message):
 # Run the logic
 scan_results = run_screener()
 
-if error:
-    send_telegram_msg(f"⚠️ Screener Error: {error}")
+alert_text = "🎯 Daily Strategy Alert:\n"
+has_signal = False
+
+for res in scan_results:
+    if res['actions']:
+        has_signal = True
+        alert_text += f"\n[{res['ticker']}] ${res['price']:.2f}\n"
+        for style, msg in res['actions']:
+            alert_text += f"- {msg}\n"
+
+if has_signal:
+    send_telegram_msg(alert_text)
 else:
-    alert_text = "🎯 Daily Strategy Alert:\n"
-    has_signal = False
+    send_telegram_msg("✅ Strategy Scan Complete: No signals triggered.")
 
-    for res in scan_results:
-        if res['actions']:
-            has_signal = True
-            alert_text += f"\n[{res['ticker']}] ${res['price']:.2f}\n"
-            for style, msg in res['actions']:
-                alert_text += f"- {msg}\n"
-
-    if has_signal:
-        send_telegram_msg(alert_text)
-    else:
-        send_telegram_msg("✅ Strategy Scan Complete: No signals triggered.")
 
