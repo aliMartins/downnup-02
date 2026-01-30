@@ -94,7 +94,7 @@ def run_screener():
             "down_streak": int(c_down_streak),
             "actions": ticker_actions if ticker_actions else ["NO ACTION REQUIRED"]
         })
-    return results
+    return results, None
 
 # ==========================================
 # STREAMLIT INTERFACE
@@ -129,3 +129,4 @@ if __name__ == "__main__":
                 
     except Exception as e:
         st.error(f"Error executing scan: {e}")
+
